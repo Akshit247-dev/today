@@ -43,6 +43,8 @@ export default class BusinessController {
         const { name, phone, userType  } = req.body;
         const email = req.session.email;
 
+       
+
         if(!name || !phone || !userType ){
             return res.status(400).send('All fields are required'); 
         }
@@ -64,6 +66,7 @@ export default class BusinessController {
         if (!req.user) {
             return res.status(401).send('Unauthorized2');
         }
+        
         const { businessName, pincode, city, state, category, phone, latitudeInput, longitudeInput, website } = req.body;
         if (!businessName || !pincode || !city || !state || !category || !phone || !latitudeInput || !longitudeInput) {
             return res.status(400).send('All fields are required');
@@ -225,7 +228,7 @@ export default class BusinessController {
         }
     }
 
-     fetchAllBusinesses = async (req, res) => {
+    fetchAllBusinesses = async (req, res) => {
         try {
             // Execute query to fetch business details
             const [rows] = await db.execute('SELECT business_name, address, phone FROM business_details');
@@ -233,8 +236,14 @@ export default class BusinessController {
             // Log the data for debugging
             console.log('Fetched Businesses:', rows);
             
+            // Check if businesses were found
+            if (rows.length === 0) {
+                console.log('No businesses found.');
+            }
+           
             // Render the EJS template with the fetched data
-            res.render('viewResturent', { detail: rows , user:req.user||null }); 
+            
+            res.render('viewResturent', { detail: rows, user : req.user || null }); 
         } catch (error) {
             console.error('Error fetching businesses:', error.message);
     
@@ -246,5 +255,15 @@ export default class BusinessController {
             });
         }
     };
+
+    allBusinessDetails = async (req, res) => {
+        console.log(req.user)
+        res.render('business-details', {user : req.user || null});
+
+    };
+    
+
+    
+    
     
 }

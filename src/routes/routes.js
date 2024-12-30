@@ -28,4 +28,6 @@ router.post('/list-business',authMiddleware, businessController.addBusinessDetai
 
 router.get('/viewResturent',businessController.fetchAllBusinesses);
 
+router.get('/business-details',businessController.allBusinessDetails);
+
 export default router;

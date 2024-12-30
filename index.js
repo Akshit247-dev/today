@@ -60,6 +60,8 @@ server.get('/api/location', async (req, res) => {
         console.error("Error fetching data:", error);
         res.status(500).json({ error: "Failed to fetch location suggestions" });
     }
+
+
 });
 
 

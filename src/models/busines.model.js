@@ -36,9 +36,16 @@ export default class BusinessModel{
 // 
 
     
-     static async fetchAllBusinesses() {
+    static async fetchAllBusinesses() {
         const [rows] = await db.execute('SELECT business_name, address, phone FROM business_details');
         return rows;
     }
+
+
+    // 
+    // static async allBusinessDetails () {
+    //    console.log(businesses);
+    //     return rows;
+    // }
 }
 
